@@ -3,18 +3,19 @@
 
 using namespace std;
 
-// struct Array
-// {
-//     int *A;
-//     int size;
-//     int length;
-// };
 struct Array
 {
-    int A[10];
+    int *A;
     int size;
     int length;
 };
+
+// struct Array
+// {
+//     int A[10];
+//     int size;
+//     int length;
+// };
 
 void Display(struct Array arr)
 {
@@ -430,16 +431,66 @@ int main()
 
     // Display(arr);
 
-    struct Array arr1 = {{2, 8, 10, 15, 25}, 10, 5};
-    struct Array arr2 = {{3, 8, 7, 15, 20}, 10, 5};
-    struct Array *arr3;
+    // struct Array arr1 = {{2, 8, 10, 15, 25}, 10, 5};
+    // struct Array arr2 = {{3, 8, 7, 15, 20}, 10, 5};
+    // struct Array *arr3;
 
     // arr3 = Merge(&arr1, &arr2);
     // arr3 = Union(&arr1, &arr2);
     // arr3 = Intersection(&arr1, &arr2);
-    arr3 = Difference(&arr1, &arr2);
-    
-    Display(*arr3);
+    // arr3 = Difference(&arr1, &arr2);
+
+    // Display(*arr3);
+
+    // MENU DRIVEN ARRAY
+    struct Array arr1;
+    int ch;
+    int x, index;
+
+    cout << "Enter size of an array." << endl;
+    scanf("%d", &arr1.size);
+    arr1.A = new int[arr1.size];
+
+    cout << "Menu\n";
+    cout << "1. Insert" << endl;
+    cout << "2. Delete" << endl;
+    cout << "3. Search" << endl;
+    cout << "4. Sum" << endl;
+    cout << "5. Display" << endl;
+    cout << "6. Exit" << endl;
+
+    cout << "Enter your choice" << endl;
+    printf("%d", &ch);
+
+    switch (ch)
+    {
+    case 1:
+        printf("Enter an element and index");
+        scanf("%d%d", &x, &index);
+        Insert(&arr1, index, x);
+        break;
+
+    case 2:
+        printf("Enter index ");
+        scanf("%d", &index);
+        x = Delete(&arr1, index);
+        printf("Deleted Element is %d\n", x);
+        break;
+
+    case 3:
+        printf("Enter element to search ");
+        scanf("%d", &x);
+        index = linearSearch(&arr1, x);
+        printf("Element index %d", index);
+        break;
+
+    case 4:
+        printf("Sum is %d\n", Total(arr1));
+        break;
+
+    case 5:
+        Display(arr1);
+    }
 
     return 0;
 }
