@@ -3,9 +3,15 @@
 
 using namespace std;
 
+// struct Array
+// {
+//     int *A;
+//     int size;
+//     int length;
+// };
 struct Array
 {
-    int *A;
+    int A[10];
     int size;
     int length;
 };
@@ -264,33 +270,73 @@ void Rearrange(struct Array *arr)
     }
 }
 
+struct Array *Merge(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+        }
+        else
+        {
+            arr3->A[k++] = arr2->A[j++];
+        }
+    }
+
+    for (; i < arr1->length; i++)
+    {
+        arr3->A[k++] = arr1->A[i];
+    }
+
+    for (; j < arr2->length; j++)
+    {
+        arr3->A[k++] = arr1->A[j];
+    }
+
+    arr3->length = arr1->length + arr2->length;
+    arr3->size = 10;
+
+    return arr3;
+}
+
 int main()
 {
-    struct Array arr;
-    int n, i;
+    // struct Array arr;
+    // int n, i;
 
-    cout << "Enter size of an array." << endl;
-    scanf("%d", &arr.size);
-    arr.A = new int[arr.size];
-    arr.length = 0;
+    // cout << "Enter size of an array." << endl;
+    // scanf("%d", &arr.size);
+    // arr.A = new int[arr.size];
+    // arr.length = 0;
 
-    cout << "Enter how many number?" << endl;
-    cin >> n;
+    // cout << "Enter how many number?" << endl;
+    // cin >> n;
 
-    cout << "Enter all elements." << endl;
-    for (i = 0; i < n; i++)
-    {
-        scanf("%d", &arr.A[i]);
-    }
-    arr.length = n;
+    // cout << "Enter all elements." << endl;
+    // for (i = 0; i < n; i++)
+    // {
+    //     scanf("%d", &arr.A[i]);
+    // }
+    // arr.length = n;
 
-    Append(&arr, 10);
-    Insert(&arr, 5, 10);
-    cout << Delete(&arr, 0) << endl;
-    cout << linearSearch(&arr, 4) << endl;
-    cout << binarySearch(arr, 5) << endl;
+    // Append(&arr, 10);
+    // Insert(&arr, 5, 10);
+    // cout << Delete(&arr, 0) << endl;
+    // cout << linearSearch(&arr, 4) << endl;
+    // cout << binarySearch(arr, 5) << endl;
 
-    Display(arr);
+    // Display(arr);
 
+    struct Array arr1 = {{2, 8, 10, 15, 25}, 10, 5};
+    struct Array arr2 = {{3, 4, 7, 18, 20}, 10, 5};
+    struct Array *arr3;
+
+    arr3 = Merge(&arr1, &arr2);
+    Display(*arr3);
+    
     return 0;
 }
