@@ -3,18 +3,18 @@
 
 using namespace std;
 
-// struct Array
-// {
-//     int *A;
-//     int size;
-//     int length;
-// };
 struct Array
 {
-    int A[10];
+    int *A;
     int size;
     int length;
 };
+// struct Array
+// {
+//     int A[10];
+//     int size;
+//     int length;
+// };
 
 void Display(struct Array arr)
 {
@@ -303,6 +303,105 @@ struct Array *Merge(struct Array *arr1, struct Array *arr2)
     return arr3;
 }
 
+struct Array *Union(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+        }
+        else if (arr2->A[j] < arr1->A[i])
+        {
+            arr3->A[k++] = arr2->A[j++];
+        }
+        else
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+
+    for (; i < arr1->length; i++)
+    {
+        arr3->A[k++] = arr1->A[i];
+    }
+
+    for (; j < arr2->length; j++)
+    {
+        arr3->A[k++] = arr1->A[j];
+    }
+
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+struct Array *Difference(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+        }
+        else if (arr2->A[j] < arr1->A[i])
+        {
+            j++;
+        }
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+
+    for (; i < arr1->length; i++)
+    {
+        arr3->A[k++] = arr1->A[i];
+    }
+
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+struct Array *Intersection(struct Array *arr1, struct Array *arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = (struct Array *)malloc(sizeof(struct Array));
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+        {
+            i++;
+        }
+        else if (arr2->A[j] < arr1->A[i])
+        {
+            j++;
+        }
+        else if (arr1->A[i] == arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
 int main()
 {
     // struct Array arr;
@@ -331,12 +430,66 @@ int main()
 
     // Display(arr);
 
-    struct Array arr1 = {{2, 8, 10, 15, 25}, 10, 5};
-    struct Array arr2 = {{3, 4, 7, 18, 20}, 10, 5};
-    struct Array *arr3;
+    // struct Array arr1 = {{2, 8, 10, 15, 25}, 10, 5};
+    // struct Array arr2 = {{3, 8, 7, 15, 20}, 10, 5};
+    // struct Array *arr3;
 
-    arr3 = Merge(&arr1, &arr2);
-    Display(*arr3);
-    
+    // arr3 = Merge(&arr1, &arr2);
+    // arr3 = Union(&arr1, &arr2);
+    // arr3 = Intersection(&arr1, &arr2);
+    // arr3 = Difference(&arr1, &arr2);
+
+    // Display(*arr3);
+
+    // MENU DRIVEN ARRAY
+    struct Array arr1;
+    int ch;
+    int x, index;
+
+    cout << "Enter size of an array." << endl;
+    scanf("%d", &arr1.size);
+    arr1.A = new int[arr1.size];
+
+    cout << "Menu\n";
+    cout << "1. Insert" << endl;
+    cout << "2. Delete" << endl;
+    cout << "3. Search" << endl;
+    cout << "4. Sum" << endl;
+    cout << "5. Display" << endl;
+    cout << "6. Exit" << endl;
+
+    cout << "Enter your choice" << endl;
+    printf("%d", &ch);
+
+    switch (ch)
+    {
+    case 1:
+        printf("Enter an element and index");
+        scanf("%d%d", &x, &index);
+        Insert(&arr1, index, x);
+        break;
+
+    case 2:
+        printf("Enter index ");
+        scanf("%d", &index);
+        x = Delete(&arr1, index);
+        printf("Deleted Element is %d\n", x);
+        break;
+
+    case 3:
+        printf("Enter element to search ");
+        scanf("%d", &x);
+        index = linearSearch(&arr1, x);
+        printf("Element index %d", index);
+        break;
+
+    case 4:
+        printf("Sum is %d\n", Total(arr1));
+        break;
+
+    case 5:
+        Display(arr1);
+    }
+
     return 0;
 }
