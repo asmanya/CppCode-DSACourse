@@ -451,46 +451,49 @@ int main()
     scanf("%d", &arr1.size);
     arr1.A = new int[arr1.size];
 
-    cout << "Menu\n";
-    cout << "1. Insert" << endl;
-    cout << "2. Delete" << endl;
-    cout << "3. Search" << endl;
-    cout << "4. Sum" << endl;
-    cout << "5. Display" << endl;
-    cout << "6. Exit" << endl;
-
-    cout << "Enter your choice" << endl;
-    printf("%d", &ch);
-
-    switch (ch)
+    do
     {
-    case 1:
-        printf("Enter an element and index");
-        scanf("%d%d", &x, &index);
-        Insert(&arr1, index, x);
-        break;
+        cout << "Menu\n";
+        cout << "1. Insert" << endl;
+        cout << "2. Delete" << endl;
+        cout << "3. Search" << endl;
+        cout << "4. Sum" << endl;
+        cout << "5. Display" << endl;
+        cout << "6. Exit" << endl;
 
-    case 2:
-        printf("Enter index ");
-        scanf("%d", &index);
-        x = Delete(&arr1, index);
-        printf("Deleted Element is %d\n", x);
-        break;
+        cout << "Enter your choice" << endl;
+        scanf("%d", &ch);
 
-    case 3:
-        printf("Enter element to search ");
-        scanf("%d", &x);
-        index = linearSearch(&arr1, x);
-        printf("Element index %d", index);
-        break;
+        switch (ch)
+        {
+        case 1:
+            printf("Enter an element and index\n");
+            scanf("%d%d", &x, &index);
+            Insert(&arr1, index, x);
+            break;
 
-    case 4:
-        printf("Sum is %d\n", Total(arr1));
-        break;
+        case 2:
+            printf("Enter index\n");
+            scanf("%d", &index);
+            x = Delete(&arr1, index);
+            printf("Deleted Element is %d\n", x);
+            break;
 
-    case 5:
-        Display(arr1);
-    }
+        case 3:
+            printf("Enter element to search\n");
+            scanf("%d", &x);
+            index = linearSearch(&arr1, x);
+            printf("Element index %d", index);
+            break;
+
+        case 4:
+            printf("Sum is %d\n", Total(arr1));
+            break;
+
+        case 5:
+            Display(arr1);
+        }
+    } while (ch < 6);
 
     return 0;
 }
