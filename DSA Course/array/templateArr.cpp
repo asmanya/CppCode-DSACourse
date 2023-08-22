@@ -1,10 +1,12 @@
 #include <iostream>
 using namespace std;
 
+template <class T>
+
 class Array
 {
 private:
-    int *A;
+    T *A;
     int size;
     int length;
 
@@ -13,24 +15,25 @@ public:
     {
         int size = 10;
         int length = 0;
-        A = new int[size];
+        A = new T[size];
     }
     Array(int sz)
     {
         size = sz;
         int length = 0;
-        A = new int[size];
+        A = new T[size];
     }
     ~Array()
     {
         delete[] A;
     }
     void Display();
-    void Insert(int index, int x);
-    int Delete(int index);
+    void Insert(int index, T x);
+    T Delete(int index);
 };
 
-void Array::Display()
+template <class T>
+void Array<T>::Display()
 {
     for (int i = 0; i < length; i++)
     {
@@ -39,7 +42,8 @@ void Array::Display()
     cout << endl;
 }
 
-void Array::Insert(int index, int x)
+template <class T>
+void Array<T>::Insert(int index, T x)
 {
     if (index >= 0 && index <= length)
     {
@@ -52,9 +56,10 @@ void Array::Insert(int index, int x)
     }
 }
 
-int Array::Delete(int index)
+template <class T>
+T Array<T>::Delete(int index)
 {
-    int x = 0;
+    T x = 0;
     if (index >= 0 && index < length)
     {
         x = A[index];
@@ -68,10 +73,13 @@ int Array::Delete(int index)
 
 int main()
 {
-    Array arr(10);
+    Array<int> arr(10);
+
     arr.Insert(0, 5);
     arr.Insert(1, 6);
     arr.Insert(2, 9);
+
     arr.Display();
+    
     return 0;
 }
