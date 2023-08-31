@@ -64,7 +64,8 @@ int linearSearch(struct Array *arr, int key)
     {
         if (key == arr->A[i])
         {
-            swap(&arr->A[i], &arr->A[i - 1]);
+            swap(&arr->A[i], &arr->A[i - 1]); // For the possibility that the same element will be searched again -- Transpostion method
+            // swap(&arr->A[i], &arr->A[0]); //MOVE TO HEAD/ FRONT METHOD
             return i;
         }
     }
@@ -79,7 +80,7 @@ int Delete(struct Array *arr, int index)
         x = arr->A[index];
         for (i = index; i < arr->length - 1; i++)
         {
-            arr->A[i] = arr->A[0];
+            arr->A[i] = arr->A[i + 1];
         }
         arr->length--;
         return x;
