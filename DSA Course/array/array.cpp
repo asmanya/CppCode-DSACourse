@@ -146,7 +146,7 @@ int Get(struct Array arr, int index)
     return -1;
 }
 
-int Set(struct Array *arr, int index, int x)
+void Set(struct Array *arr, int index, int x)
 {
     if (index >= 0 && index < arr->length)
     {
