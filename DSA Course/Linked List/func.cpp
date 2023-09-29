@@ -7,7 +7,7 @@ struct Node
 {
     int data;
     struct Node *next;
-} *first;
+} *first, *second = NULL, *third = NULL;
 
 void create(int A[], int n)
 {
@@ -16,6 +16,24 @@ void create(int A[], int n)
     first->data = A[0];
     first->next = NULL;
     last = first;
+
+    for (int i = 1; i < n; i++)
+    {
+        t = new Node;
+        t->next = NULL;
+        t->data = A[i];
+        last->next = t;
+        last = t;
+    }
+}
+
+void create2(int A[], int n)
+{
+    struct Node *last, *t;
+    first = new Node;
+    first->data = A[0];
+    first->next = NULL;
+    last = second;
 
     for (int i = 1; i < n; i++)
     {
@@ -332,6 +350,7 @@ void removeDuplicate(struct Node *p)
 
 void reverseLinkedList(struct Node *p)
 {
+    // array
     int *A, i = 0;
     struct Node *q = p;
 
@@ -354,6 +373,7 @@ void reverseLinkedList(struct Node *p)
 
 void reverseLinkedList2(struct Node *p)
 {
+    // Three pointers
     struct Node *q = NULL, *r = NULL;
 
     while (p != NULL)
@@ -366,10 +386,97 @@ void reverseLinkedList2(struct Node *p)
     first = q;
 }
 
+void reverseLinkedList3(struct Node *q, struct Node *p)
+{
+    // recursion
+    if (p)
+    {
+        reverseLinkedList3(p, p->next);
+        p->next = q;
+    }
+    else
+    {
+        first = q;
+    }
+}
+
+void concat(struct Node *p, struct Node *q)
+{
+    third = p;
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    p->next = q;
+}
+
+void Merge(struct Node *p, struct Node *q)
+{
+    struct Node *last;
+    if (p->data < q->data)
+    {
+        third = last = p;
+        p = p->next;
+        third->next = NULL;
+    }
+    else
+    {
+        third = last = q;
+        q = q->next;
+        third->next = NULL;
+    }
+
+    while (p && q)
+    {
+        if (p->data < q->data)
+        {
+            last->next = p;
+            last = p;
+            p = p->next;
+            last->next = NULL;
+        }
+        else
+        {
+            last->next = q;
+            last = q;
+            q = q->next;
+            last->next = NULL;
+        }
+    }
+    if (p)
+        last->next = p;
+    if (q)
+        last->next = q;
+}
+
+int isLoop(struct Node *f)
+{
+    struct Node *p, *q;
+    p = q = f;
+
+    do
+    {
+        p = p->next;
+        q = q->next;
+        q = q ? q->next : q;
+    } while (p && q && p != q);
+    if (p == q)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main()
 {
-    int A[] = {1, 2, 2, 2, 3, 4, 5};
-    create(A, 7);
+    struct Node *t1, *t2;
+    // int A[] = {1, 2, 2, 2, 3, 4, 5};
+    int B[] = {3, 4, 5, 6, 7};
+    // create(A, 7);
+    create2(B, 5);
     // cout << count(first) << endl;
     // cout << sum(first) << endl;
     // cout << rMax(first) << endl;
@@ -381,13 +488,19 @@ int main()
     // sortedInsert(first, 8);
     // sortedInsert(first, 12);
     // sortedInsert(first, 7);
-
     // Delete(first, 4);
 
-    cout << "The linked list is now " << endl;
-    removeDuplicate(first);
-    Display(first);
-    reverseLinkedList(first);
+    // cout << "The first linked list is " << endl;
+    // removeDuplicate(first);
+    // Display(first);
+    // reverseLinkedList(first);
+    // cout << endl;
+    cout << "The second linked list is " << endl;
+    Display(second);
+
+    t1 = first->next->next;
+    t2 = first->next->next->next->next;
+    t2->next = t1;
 
     return 0;
 }
