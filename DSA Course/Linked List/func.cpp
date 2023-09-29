@@ -203,7 +203,6 @@ Node *improveSearch(struct Node *p, int key)
     return NULL; // Return NULL if the key is not found
 }
 
-
 void insert(int pos, int x)
 {
     Node *t, *p;
@@ -279,15 +278,98 @@ void sortedInsert(struct Node *p, int x)
     }
 }
 
-void Delete()
+int Delete(struct Node *p, int index)
 {
+    struct Node *q = NULL;
+    int x = -1;
 
+    if (index < 1 || index > count(p))
+    {
+        return -1;
+    }
+
+    else if (index == 1)
+    {
+        q = first;
+        x = first->data;
+        first = first->next;
+        delete q;
+        return x;
+    }
+    else
+    {
+        for (int i = 0; i < index - 1; i++)
+        {
+            q = p;
+            p = p->next;
+        }
+        q->next = p->next;
+        x = p->data;
+        delete p;
+        return x;
+    }
+}
+
+void removeDuplicate(struct Node *p)
+{
+    struct Node *q = p->next;
+
+    while (q != NULL)
+    {
+        if (p->data != q->data)
+        {
+            p = q;
+            q = q->next;
+        }
+        else
+        {
+            p->next = q->next;
+            delete q;
+            q = p->next;
+        }
+    }
+}
+
+void reverseLinkedList(struct Node *p)
+{
+    int *A, i = 0;
+    struct Node *q = p;
+
+    A = new int[count(p)];
+    while (q != NULL)
+    {
+        A[i] = q->data;
+        q = q->next;
+        i++;
+    }
+    q = p;
+    i--;
+    while (q != NULL)
+    {
+        q->data = A[i];
+        q = q->next;
+        i--;
+    }
+}
+
+void reverseLinkedList2(struct Node *p)
+{
+    struct Node *q = NULL, *r = NULL;
+
+    while (p != NULL)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    first = q;
 }
 
 int main()
 {
-    int A[] = {1, 2, 3, 4, 5};
-    create(A, 5);
+    int A[] = {1, 2, 2, 2, 3, 4, 5};
+    create(A, 7);
     // cout << count(first) << endl;
     // cout << sum(first) << endl;
     // cout << rMax(first) << endl;
@@ -295,13 +377,17 @@ int main()
     // search(first, 4);
     // insert(2, 10);S
     // insertLast(8);
-    sortedInsert(first, 11);
-    sortedInsert(first, 8);
-    sortedInsert(first, 12);
-    sortedInsert(first, 7);
+    // sortedInsert(first, 11);
+    // sortedInsert(first, 8);
+    // sortedInsert(first, 12);
+    // sortedInsert(first, 7);
+
+    // Delete(first, 4);
 
     cout << "The linked list is now " << endl;
+    removeDuplicate(first);
     Display(first);
+    reverseLinkedList(first);
 
     return 0;
 }
