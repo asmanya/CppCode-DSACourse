@@ -6,7 +6,7 @@ class Stack
 public:
     int size;
     int top;
-    int *S;
+    char *S;
 };
 
 void create(Stack *st)
@@ -14,7 +14,7 @@ void create(Stack *st)
     cout << "Enter size of stack." << endl;
     cin >> st->size;
     st->top = -1;
-    st->S = new int[st->size];
+    st->S = new char[st->size];
 }
 
 void display(Stack st)
@@ -27,7 +27,7 @@ void display(Stack st)
     cout << endl;
 }
 
-void push(Stack *st, int x)
+void push(Stack *st, char x)
 {
     if (st->top == st->size - 1)
     {
@@ -40,9 +40,9 @@ void push(Stack *st, int x)
     }
 }
 
-int pop(Stack *st)
+char pop(Stack *st)
 {
-    int x = -1;
+    char x = -1;
     if (st->top == -1)
     {
         cout << "Stack underflow.";
@@ -108,21 +108,44 @@ int stackTop(Stack st)
     }
 }
 
+int isBalance(char *exp)
+{
+    Stack st;
+    int i;
+    for (i = 0; exp[i] != '\0'; i++)
+    {
+        if (exp[i] == '(')
+        {
+            push(&st, exp[i]);
+        }
+        else if (exp[i] == ')')
+        {
+            if (st.top == -1)
+            {
+                return 0;
+            }
+            else
+            {
+                pop(&st);
+            }
+        }
+    }
+    if (st.top == -1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main()
 {
     Stack st;
-    create(&st);
 
-    push(&st, 10);
-    push(&st, 20);
-    push(&st, 30);
-    push(&st, 40);
-    push(&st, 50);
-
-    // cout << pop(&st) << endl;
-    cout << peek(st, 2) << endl;
-
-    display(st);
+    char exp[] = "((a+b)*(c+d))";
+    cout << isBalance(exp);
 
     return 0;
 }
