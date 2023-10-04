@@ -54,7 +54,7 @@ void Queue ::display()
 int Queue ::dequeue()
 {
     int x = -1;
-    if (rear == front)
+    if (rear == front) 
     {
         cout << "Queue emtpy";
     }
