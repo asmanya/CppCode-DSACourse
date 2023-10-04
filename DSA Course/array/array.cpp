@@ -201,7 +201,7 @@ void Reverse1(struct Array *arr)
     int i, j;
     B = new int[arr->length];
 
-    for (i = arr->length - 2, j = 0; i >= 0; i--, j++)
+    for (i = arr->length - 1, j = 0; i >= 0; i--, j++)
     {
         B[j] = arr->A[i];
     }
