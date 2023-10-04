@@ -4,6 +4,7 @@
         "TUT9.C": "cpp",
         "iostream": "cpp",
         "ostream": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "random": "cpp"
     }
 }
