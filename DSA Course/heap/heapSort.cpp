@@ -29,7 +29,35 @@ void insertMaxHeap(int A[], int n)
 
 int deleteHeap(int A[], int n)
 {
-    
+    int i, j, x, temp, val;
+    i = 1;
+    j = 2 * i;
+    val = A[1];
+    x = A[n];
+    A[1] = x;
+
+    while (j <= n - 1)
+    {
+        if (j < n - 1 && A[j] < A[j + 1])
+        {
+            j = j + 1;
+        }
+        if (A[i] < A[j])
+        {
+            temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
+            i = j;
+            j = 2 * i;
+        }
+        else
+        {
+            break;
+        }
+    }
+    A[n] = val;
+
+    return val;
 }
 
 int main()
@@ -60,14 +88,13 @@ int main()
     }
     cout << endl;
 
-    cout << "deleted value is " << deleteHeap(H, 7) << endl;
-    for (int i = 1; i <= 7; i++)
+    for (int i = 7; i > 1; i--)
     {
-        cout << H[i] << " ";
+        deleteHeap(H, i);
     }
 
-    cout << endl;
-    cout << "deleted value is " << deleteHeap(H, 6) << endl;
+    cout << "heap sort gives: ";
+    
     for (int i = 1; i <= 7; i++)
     {
         cout << H[i] << " ";
