@@ -54,16 +54,35 @@ void ImergeSort(int A[], int n)
     }
 }
 
+void RmergeSort(int A[], int l, int h)
+{
+
+    if (l < h)
+    {
+        int mid = (l + h) / 2;
+        RmergeSort(A, l, mid);
+        RmergeSort(A, mid + 1, h);
+        merge(A, l, mid, h);
+    }
+}
+
 int main()
 {
     int A[] = {3, 7, 9, 10, 6, 5, 12, 4, 11, 2}, n = 10;
 
-    ImergeSort(A, 10);
+    RmergeSort(A, 0, n - 1);
 
     for (int i = 0; i < n; i++)
     {
         cout << A[i] << " ";
     }
+
+    // ImergeSort(A, n);
+
+    // for (int i = 0; i < n; i++)
+    // {
+    //     cout << A[i] << " ";
+    // }
 
     return 0;
 }
