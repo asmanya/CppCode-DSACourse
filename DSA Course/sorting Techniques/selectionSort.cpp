@@ -21,9 +21,9 @@ void selectionSort(int A[], int n)
 
 int main()
 {
-    int A[] = {3, 7, 9, 10, 6, 5, 12, 4, 11, 2}, n = 10;
+    int A[] = {3, 7, 9, 10, 16, 45, 12, 4, 11, 2}, n = 10;
 
-    selectionSort(A, 10);
+    selectionSort(A, n);
 
     for (int i = 0; i < n; i++)
     {
