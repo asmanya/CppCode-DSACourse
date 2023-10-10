@@ -87,7 +87,6 @@ void radixSort(int A[], int n)
 
     for (int pass = 0; pass < nPass; pass++)
     {
-        // Initialize bins for each pass
         initializeBins(bins, 10);
 
         for (int i = 0; i < n; i++)
