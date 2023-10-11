@@ -69,6 +69,7 @@ void insert(Node *H[], int key)
 int main()
 {
     Node *HT[10];
+    Node *temp;
     int i;
 
     for (i = 0; i < 10; i++)
@@ -79,6 +80,10 @@ int main()
     insert(HT, 12);
     insert(HT, 22);
     insert(HT, 42);
+
+    temp = search(HT[hashin(22)], 22);
+
+    cout << temp->data;
 
     return 0;
 }
