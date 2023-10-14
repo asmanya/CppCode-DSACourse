@@ -314,6 +314,10 @@ void explainExtra()
 
     sort(a, a + n /*, comp*/); // comp is self written comparator
     // basically it is a boolean func
+<<<<<<< HEAD
+=======
+
+>>>>>>> newChanges1
 }
 
 int main()
